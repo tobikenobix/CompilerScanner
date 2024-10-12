@@ -44,6 +44,11 @@ public class P2 {
 				       ((IntLitTokenVal)token.value).intVal +
 				       ")");
 		    break;
+		case sym.ID:
+		    System.out.println("ID (" +
+				       ((StringTokenVal)token.value).stringVal +
+				       ")");
+		    break;
 		}
 		token = scanner.next_token();
 	    }
