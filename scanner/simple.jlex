@@ -52,6 +52,7 @@ NEWLINE= [\n \r]
 RESERVED_WORDS= String|System.out.println|boolean|class|do|else|false|if|int|public|return|static|true|void|while|case|switch|default
 IDENTIFIER= [a-zA-Z][a-zA-Z0-9_]*
 STRING_LITERAL= \"([^\\\"\n]|\\[ntr\"\\])*\" 
+COMMENT_SINGLE_LINE= \/\/.*
 SYMBOLS= \{|\}|\(|\)|,|=|;|\+|-|\*|\/|\!|&&|\|\||==|\!=|>|<|<=|>=
 
 
@@ -121,6 +122,9 @@ return new Symbol(sym.EOF);
 		Errors.fatal(yyline+1, CharNum.num, "Illegal Reserved Word");
 	}
 }
+{COMMENT_SINGLE_LINE} {
+	CharNum.num = 1;
+}
 
 {IDENTIFIER}	{
 		Symbol S = new Symbol(sym.ID, new StringTokenVal(yyline+1, CharNum.num, yytext()));
@@ -169,11 +173,6 @@ return new Symbol(sym.EOF);
 		Errors.fatal(yyline+1, CharNum.num, "Illegal Symbol!");
 	}	
 }
-
-"+"	   {Symbol S = new Symbol(sym.PLUS, new TokenVal(yyline+1, CharNum.num));
-	    CharNum.num++;
-	    return S;
-	   }
 
 	    
 .	   {Errors.fatal(yyline+1, CharNum.num,
