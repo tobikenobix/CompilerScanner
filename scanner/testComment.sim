@@ -1,4 +1,7 @@
 public class Test {
+    /* this is a 
+    multi line 
+    comment */
    static int x;
    //This is a comment, it holds unimport information
    static int y;
