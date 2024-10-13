@@ -51,6 +51,9 @@ WHITESPACE=	[\ \t]
 NEWLINE= [\n \r]
 RESERVED_WORDS= String|System.out.println|boolean|class|do|else|false|if|int|public|return|static|true|void|while|case|switch|default
 IDENTIFIER= [a-zA-Z][a-zA-Z0-9_]*
+STRING_LITERAL= \"([^\\\"\n]|\\[ntr\"\\])*\" 
+SYMBOLS= \{|\}|\(|\)|,|=|;|\+|-|\*|\/|\!|&&|\|\||==|\!=|>|<|<=|>=
+
 
 // The next 3 lines are included so that we can use the generated scanner
 // with java CUP (the Java parser generator)
@@ -124,11 +127,54 @@ return new Symbol(sym.EOF);
 		CharNum.num += yytext().length();
 		return S;
 	}
+{STRING_LITERAL} {
+	//String literal = yytext().substring(1, yytext().length() - 1);
+	String literal = yytext();
+	Symbol S = new Symbol(sym.STRINGLITERAL, new StringTokenVal(yyline+1, CharNum.num, literal));
+	CharNum.num = yytext().length();
+	return S;
+}
+
+{SYMBOLS} {
+	try{
+	String symbol = yytext();
+	int symb; //aaaaahhh should have thought about naming when doing the reserved words, no keeping it for continuity
+	switch(symbol) {
+		case "{": symb = sym.LCURLY;break;
+		case "}": symb = sym.RCURLY;break;
+		case "(": symb = sym.LPAREN;break;
+		case ")": symb = sym.RPAREN;break;
+		case ",": symb = sym.COMMA; break;
+		case "=": symb = sym.ASSIGN; break;
+		case ";": symb = sym.SEMICOLON; break;
+		case "+": symb = sym.PLUS; break;
+		case "-": symb = sym.MINUS; break;
+		case "*": symb = sym.TIMES; break;
+		case "/": symb = sym.DIVIDE; break;
+		case "!": symb = sym.NOT; break;
+		case "&&": symb = sym.AND; break;
+		case "||": symb = sym.OR; break;
+		case "==": symb = sym.EQUALS; break;
+		case "!=": symb = sym.NOTEQUALS; break;
+		case "<": symb = sym.LESS;break;
+		case ">": symb = sym.GREATER; break;
+		case "<=": symb = sym.LESSEQ; break;
+		case ">=": symb = sym.GREATEREQ; break;
+		default: throw new IllegalStateException("Illegal Symbol!");
+	}
+	Symbol S = new Symbol(symb, new TokenVal(yyline+1, CharNum.num));
+	CharNum.num += yytext().length();
+	return S;
+	} catch (IllegalStateException e){
+		Errors.fatal(yyline+1, CharNum.num, "Illegal Symbol!");
+	}	
+}
 
 "+"	   {Symbol S = new Symbol(sym.PLUS, new TokenVal(yyline+1, CharNum.num));
 	    CharNum.num++;
 	    return S;
 	   }
+
 	    
 .	   {Errors.fatal(yyline+1, CharNum.num,
 			 "ignoring illegal character: " + yytext());

@@ -36,9 +36,6 @@ public class P2 {
 		System.out.print(((TokenVal)token.value).linenum + ":" +
 				 ((TokenVal)token.value).charnum + " ");
 		switch (token.sym) {
-		case sym.PLUS:
-		    System.out.println("PLUS");
-		    break;
 		case sym.INTLITERAL:
 		    System.out.println("INTLITERAL (" +
 				       ((IntLitTokenVal)token.value).intVal +
@@ -105,8 +102,67 @@ public class P2 {
 		    break;
 		case sym.STRINGLITERAL:
 			System.out.println("STRINGLITERAL (" + ((StringTokenVal)token.value).stringVal +")");
-		
-		
+			break;
+		case sym.LCURLY:
+			System.out.println("LCURLY");
+			break;
+		case sym.RCURLY: 
+			System.out.println("RCURLY");
+			break;
+		case sym.LPAREN: 
+			System.out.println("LPAREN");
+			break;
+		case sym.RPAREN: 
+			System.out.println("RPAREN");
+			break;	
+		case sym.COMMA: 
+			System.out.println("COMMA");
+			break;
+		case sym.ASSIGN: 
+			System.out.println("ASSIGN");
+			break;
+		case sym.SEMICOLON: 
+			System.out.println("SEMICOLON");
+			break;
+		case sym.PLUS: 
+			System.out.println("PLUS");
+			break;
+		case sym.MINUS: 
+			System.out.println("MINUS");
+			break;
+		case sym.TIMES: 
+			System.out.println("TIMES");
+			break;
+		case sym.DIVIDE: 
+			System.out.println("DIVIDE");
+			break;
+		case sym.NOT: 
+			System.out.println("NOT");
+			break;
+		case sym.AND: 
+			System.out.println("AND");
+			break;
+		case sym.OR: 
+			System.out.println("OR");
+			break;
+		case sym.EQUALS: 
+			System.out.println("EQUALS");
+			break;
+		case sym.NOTEQUALS: 
+			System.out.println("NOTEQUALS");
+			break;
+		case sym.LESS: 
+			System.out.println("LESS");
+			break;
+		case sym.GREATER: 
+			System.out.println("GREATER");
+			break;
+		case sym.LESSEQ: 
+			System.out.println("LESSEQ");
+			break;
+		case sym.GREATEREQ: 
+			System.out.println("GREATEREQ");
+			break;
 		}
 		token = scanner.next_token();
 	    }
