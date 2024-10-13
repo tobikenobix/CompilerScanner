@@ -47,7 +47,9 @@ class CharNum {
 %%
 
 DIGIT=		[0-9]
-WHITESPACE=	[\ \t\n \r]
+WHITESPACE=	[\ \t]
+NEWLINE= [\n \r]
+RESERVED_WORDS= String|System.out.println|boolean|class|do|else|false|if|int|public|return|static|true|void|while|case|switch|default
 IDENTIFIER= [a-zA-Z][a-zA-Z0-9_]*
 
 // The next 3 lines are included so that we can use the generated scanner
@@ -81,6 +83,41 @@ return new Symbol(sym.EOF);
 	}
 
 {WHITESPACE}+  {CharNum.num += yytext().length();}
+
+{NEWLINE} {CharNum.num = 1;}
+
+{RESERVED_WORDS} {
+	try{
+	String reserved_word = yytext();
+	int symb;
+	switch(reserved_word) {
+		case "String": symb = sym.STRING; break;
+		case "System.out.println": symb = sym.PRINT; break;
+		case "boolean": symb = sym.BOOLEAN; break;
+		case "class": symb = sym.CLASS; break;
+		case "do": symb = sym.DO; break;
+		case "else": symb = sym.ELSE; break;
+		case "false": symb = sym.FALSE; break;
+		case "if": symb = sym.IF; break;
+		case "int": symb = sym.INT; break;
+		case "public": symb = sym.PUBLIC; break;
+		case "return": symb = sym.RETURN; break;
+		case "static": symb = sym.STATIC; break;
+		case "true": symb = sym.TRUE; break;
+		case "void": symb = sym.VOID; break;
+		case "while": symb = sym.WHILE; break;
+		case "case": symb = sym.CASE; break;
+		case "switch": symb = sym.SWITCH; break;
+		case "default": symb = sym.DEFAULT; break;
+		default: throw new IllegalStateException("Illegal Reserved Word");
+	}
+	Symbol S = new Symbol(symb, new TokenVal(yyline+1, CharNum.num));
+	CharNum.num += yytext().length();
+	return S;
+	} catch (IllegalStateException e) {
+		Errors.fatal(yyline+1, CharNum.num, "Illegal Reserved Word");
+	}
+}
 
 {IDENTIFIER}	{
 		Symbol S = new Symbol(sym.ID, new StringTokenVal(yyline+1, CharNum.num, yytext()));

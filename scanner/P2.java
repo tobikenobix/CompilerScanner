@@ -49,6 +49,62 @@ public class P2 {
 				       ((StringTokenVal)token.value).stringVal +
 				       ")");
 		    break;
+		case sym.STRING:
+		    System.out.println("RW_STRING");
+		    break;
+		case sym.PRINT:
+		    System.out.println("RW_PRINT");
+		    break;
+		case sym.BOOLEAN:
+		    System.out.println("RW_BOOLEAN");
+		    break;
+		case sym.CLASS:
+		    System.out.println("RW_CLASS");
+		    break;
+		case sym.DO:
+		    System.out.println("RW_DO");
+		    break;
+		case sym.ELSE:
+		    System.out.println("RW_ELSE");
+		    break;
+		case sym.FALSE: 
+		    System.out.println("RW_FALSE");
+		    break;
+		case sym.IF: 
+		    System.out.println("RW_IF");
+		    break;
+		case sym.INT: 
+		    System.out.println("RW_INT");
+		    break;
+		case sym.PUBLIC: 
+		    System.out.println("RW_PUBLIC");
+		    break;
+		case sym.RETURN: 
+		    System.out.println("RW_RETURN");
+		    break;
+		case sym.STATIC: 
+		    System.out.println("RW_STATIC");
+		    break;
+		case sym.TRUE: 
+		    System.out.println("RW_TRUE");
+		    break;
+		case sym.VOID: 
+		    System.out.println("RW_VOID");
+		    break;
+		case sym.WHILE: 
+		    System.out.println("RW_WHILE");
+		    break;
+		case sym.CASE: 
+		    System.out.println("RW_CASE");
+		    break;
+		case sym.SWITCH: 
+		    System.out.println("RW_SWITCH");
+		    break;
+		case sym.DEFAULT: 
+		    System.out.println("RW_DEFAULT");
+		    break;
+		
+		
 		}
 		token = scanner.next_token();
 	    }
