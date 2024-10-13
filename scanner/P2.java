@@ -103,6 +103,8 @@ public class P2 {
 		case sym.DEFAULT: 
 		    System.out.println("RW_DEFAULT");
 		    break;
+		case sym.STRINGLITERAL:
+			System.out.println("STRINGLITERAL (" + ((StringTokenVal)token.value).stringVal +")");
 		
 		
 		}
