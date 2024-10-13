@@ -43,7 +43,7 @@ clean:
 test:	test.sim P2.class
 	@echo "If you get an error below your Scanner does not work yet!"
 	@echo "Modify the simple.jlex specification to implement the language!"
-	java -cp $(CLASSPATH) P2 test.sim
+	java -cp $(CLASSPATH) P2 testComplex.sim
 
 
 ###
