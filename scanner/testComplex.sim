@@ -1,0 +1,29 @@
+// this class is used to have a more complex test scenario for my scanner
+public class ComplexTestClass {
+    //static variable declaration block
+    public static dummy = 0;
+    //var block
+    int x;
+    int y;
+    String z;
+    boolean b = true;
+    ComplexTestClass(x, y, z, b){
+        x = x;
+        y = y;
+        z = Z;
+        b = b;
+        $//this is not supposed to be here
+    }
+    /* bad code but maybe some programmer needs it later on - so I just leave it here in comments. Also I want to my boss to think I work hard, since I always have so many lines of code
+    int businessFunction(boolean bool){
+
+    }
+    */
+    int addInts(int s1, int s2){
+        return s1 + s2;
+    }
+    void print(String hello){
+        System.out.println(hello + "is this thing working?");
+    }
+
+}
