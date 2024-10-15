@@ -71,7 +71,7 @@ return new Symbol(sym.EOF);
 %init{
 	yybegin( NORMAL );
 %init}
-%state NORMAL COMMENT
+%state NORMAL COMMENT STRING
 
 %%
 <NORMAL> {
@@ -140,6 +140,9 @@ return new Symbol(sym.EOF);
 {STRING_LITERAL} {
 	//String literal = yytext().substring(1, yytext().length() - 1);
 	String literal = yytext();
+	literal = literal.replace("\\n", "\n");
+	literal = literal.replace("\\t", "\t");
+	literal = literal.replace("\\r", "\r");
 	Symbol S = new Symbol(sym.STRINGLITERAL, new StringTokenVal(yyline+1, CharNum.num, literal));
 	CharNum.num = yytext().length();
 	return S;
