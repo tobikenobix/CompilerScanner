@@ -1,4 +1,5 @@
 // this class is used to have a more complex test scenario for my scanner
+\
 public class ComplexTestClass {
     //static variable declaration block
     public static dummy = 0;
