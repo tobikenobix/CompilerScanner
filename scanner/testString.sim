@@ -4,4 +4,5 @@
 "include a quote like this \" and a backslash like this \\"
 "unterminated
 "also unterminated \"
-"bad escaped character: \a AND not terminated
+"bad escaped character: \a AND not terminated"
+"\a this is bad"

@@ -46,6 +46,7 @@ class CharNum {
 }
 %%
 DIGIT=		[0-9]
+INT=		-?{DIGIT}
 WHITESPACE=	[\ \t]
 NEWLINE= [\r|\n|\r\n]
 RESERVED_WORDS= String|System.out.println|boolean|class|do|else|false|if|int|public|return|static|true|void|while|case|switch|default
@@ -77,8 +78,8 @@ return new Symbol(sym.EOF);
 <NORMAL> {
 
 "/*"	{ yybegin( COMMENT );}
-
-{DIGIT}+   {
+// changed from DIGIT to INT to use negative integer 
+{INT}+   {
 	    try {
         int parsedInt = Integer.parseInt(yytext());
         Symbol S = new Symbol(sym.INTLITERAL,
