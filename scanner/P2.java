@@ -43,7 +43,7 @@ public class P2 {
 		    break;
 		case sym.ID:
 		    System.out.println("ID (" +
-				       ((StringTokenVal)token.value).stringVal +
+				       ((IdTokenVal)token.value).idVal +
 				       ")");
 		    break;
 		case sym.STRING:
@@ -163,7 +163,14 @@ public class P2 {
 		case sym.GREATEREQ: 
 			System.out.println("GREATEREQ");
 			break;
+		case sym.COLON:
+			System.out.println(":");
+			break;
+			case sym.EXPONENT:
+			System.out.println("**");
+			break;
 		}
+		
 		token = scanner.next_token();
 	    }
 	} catch (IOException ex) {

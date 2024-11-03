@@ -50,5 +50,7 @@ public class sym {
   public static final int CASE = 40;
   public static final int SWITCH = 41;
   public static final int DEFAULT = 42;
+  public static final int COLON = 43;
+  public static final int EXPONENT = 44;
 }
 

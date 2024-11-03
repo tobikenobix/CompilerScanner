@@ -38,6 +38,14 @@ class StringTokenVal extends TokenVal {
 	}
 }
 
+class IdTokenVal extends TokenVal {
+    String idVal;
+    IdTokenVal(int l, int c, String str) {
+        super(l,c);
+        idVal = str;
+    }
+}
+
 
 // The following class is used to keep track of the character number at which
 // the current token starts on its line.
@@ -46,14 +54,14 @@ class CharNum {
 }
 %%
 DIGIT=		[0-9]
-INT=		-?{DIGIT}
+INT=		{DIGIT}
 WHITESPACE=	[\ \t]
 NEWLINE= [\r|\n|\r\n]
 RESERVED_WORDS= String|System.out.println|boolean|class|do|else|false|if|int|public|return|static|true|void|while|case|switch|default
 IDENTIFIER= [a-zA-Z][a-zA-Z0-9_]*
 STRING_LITERAL= \"([^\\\"\n]|\\[ntr\"\\])*\" 
 COMMENT_SINGLE_LINE= \/\/.*
-SYMBOLS= \{|\}|\(|\)|,|=|;|\+|-|\*|\/|\!|&&|\|\||==|\!=|>|<|<=|>=
+SYMBOLS= \{|\}|\(|\)|,|=|;|\+|-|\*\*|\*|\/|\!|&&|\|\||==|\!=|>|<|<=|>=|:
 
 
 // The next 3 lines are included so that we can use the generated scanner
@@ -78,7 +86,7 @@ return new Symbol(sym.EOF);
 <NORMAL> {
 
 "/*"	{ yybegin( COMMENT );}
-// changed from DIGIT to INT to use negative integer 
+// removed -? to avoid ambiguity with the minus operator 
 {INT}+   {
 	    try {
         int parsedInt = Integer.parseInt(yytext());
@@ -134,7 +142,7 @@ return new Symbol(sym.EOF);
 }
 
 {IDENTIFIER}	{
-		Symbol S = new Symbol(sym.ID, new StringTokenVal(yyline+1, CharNum.num, yytext()));
+		Symbol S = new Symbol(sym.ID, new IdTokenVal(yyline+1, CharNum.num, yytext()));
 		CharNum.num += yytext().length();
 		return S;
 	}
@@ -158,11 +166,13 @@ return new Symbol(sym.EOF);
 		case "}": symb = sym.RCURLY;break;
 		case "(": symb = sym.LPAREN;break;
 		case ")": symb = sym.RPAREN;break;
+		case ":": symb = sym.COLON;break;
 		case ",": symb = sym.COMMA; break;
 		case "=": symb = sym.ASSIGN; break;
 		case ";": symb = sym.SEMICOLON; break;
 		case "+": symb = sym.PLUS; break;
 		case "-": symb = sym.MINUS; break;
+		case "**": symb = sym.EXPONENT; break;
 		case "*": symb = sym.TIMES; break;
 		case "/": symb = sym.DIVIDE; break;
 		case "!": symb = sym.NOT; break;

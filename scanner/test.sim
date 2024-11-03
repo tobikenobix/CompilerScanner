@@ -3,3 +3,6 @@
 A = -200 
 -55 - 10
 "This is a \n String"
+switch(a){
+    case: 5**2
+}
